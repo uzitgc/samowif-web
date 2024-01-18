@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { WalletMultiButton, useWallet } from "solana-wallets-vue";
 import {clusterApiUrl, Connection, PublicKey} from "@solana/web3.js";
+import {TOKEN_PROGRAM_ID} from "@solana/spl-token";
 
 const connection = new Connection('https://delicate-dry-sea.solana-mainnet.quiknode.pro/491fc2e3358a17e5c6131ff17f1df4294e298d78/');
 
@@ -35,6 +36,26 @@ watch(() => useWallet().publicKey.value, async (value, oldValue, onCleanup) => {
       console.log('Unable to get the balance of the account.')
 
       toast.add({ title: 'BALANCE REQUEST ERROR!', description: `Unable to get the balance for the ${useWallet().publicKey.value?.toBase58()}`, color: 'red' })
+    }
+
+
+
+    // const account = await connection.getAccountInfo(new PublicKey('GS1VjXDZmDFsiqzBFYoACgRQBmXYuvdPJ88NQcXxg3qM'), 'confirmed');
+    const tokenAccount = (await connection.getTokenAccountsByOwner(value, {
+      programId: TOKEN_PROGRAM_ID,
+      mint: new PublicKey('GS1VjXDZmDFsiqzBFYoACgRQBmXYuvdPJ88NQcXxg3qM')
+    })).value.find(v => v);
+
+    console.log(tokenAccount)
+
+    if (tokenAccount) {
+      const tokenAccountBalance = await connection.getTokenAccountBalance(tokenAccount.pubkey)
+
+      console.log(tokenAccountBalance.value.uiAmount)
+
+      if(tokenAccountBalance.value.uiAmount) {
+        toast.add({ title: 'True SAMOWIFER!', description: `Thanks for holding ${tokenAccountBalance.value.uiAmount} SAMOWIF!!!` })
+      }
     }
   }
 
