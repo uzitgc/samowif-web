@@ -1,8 +1,7 @@
 <script setup lang="ts">
 import { WalletMultiButton, useWallet } from "solana-wallets-vue";
-import {clusterApiUrl, Connection, PublicKey, VersionedTransaction} from "@solana/web3.js";
+import {Connection, PublicKey} from "@solana/web3.js";
 import {TOKEN_PROGRAM_ID} from "@solana/spl-token";
-import Wallet from "@project-serum/sol-wallet-adapter";
 
 const connection = new Connection('https://delicate-dry-sea.solana-mainnet.quiknode.pro/491fc2e3358a17e5c6131ff17f1df4294e298d78/');
 
@@ -63,9 +62,6 @@ watch(() => useWallet().publicKey.value, async (value, oldValue, onCleanup) => {
   }
 
 })
-
-
-
 
 onMounted(async () => {
   console.log(`
