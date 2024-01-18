@@ -51,7 +51,7 @@ import Footer from "~/components/shared/Footer.vue";
             </div>
           </div>
 
-          <div class="flex flex-col md:flex-row justify-center space-x-2">
+          <div class="flex flex-col md:flex-row justify-center space-y-2 md:space-y-0 md:space-x-2">
             <ULink to="https://jup.ag/swap/SOL-SAMOWIF_GS1VjXDZmDFsiqzBFYoACgRQBmXYuvdPJ88NQcXxg3qM" target="_blank" class="middle items-center flex none center bg-cyan-500/50 rounded-full py-3 px-6 font-sans text-xs font-bold uppercase text-white shadow-md shadow-teal-500/20 transition-all hover:shadow-lg hover:shadow-teal-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none">
               <img src="https://station.jup.ag/img/jupiter-logo.svg" class="mr-1 h-6 w-6 inline-block" />
               Jupiter
