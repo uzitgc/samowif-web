@@ -26,7 +26,9 @@
     "@metaplex-foundation/umi": "^0.8.10",
     "@project-serum/anchor": "^0.26.0",
     "@solana/spl-token": "^0.3.9",
+    "@solana/wallet-adapter-wallets": "^0.19.25",
     "@solana/web3.js": "^1.87.6",
-    "axios": "^1.6.2"
+    "axios": "^1.6.2",
+    "solana-wallets-vue": "^0.6.0"
   }
 }

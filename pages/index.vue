@@ -62,7 +62,8 @@ import Footer from "~/components/shared/Footer.vue";
             </ULink>
           </div>
 
-          <iframe class="w-full h-screen border border-teal-400 rounded shadow-md shadow-teal-500" loading="lazy" src="https://jup.ag/swap/SOL-SAMOWIF_GS1VjXDZmDFsiqzBFYoACgRQBmXYuvdPJ88NQcXxg3qM"></iframe>
+<!--          <iframe class="w-full h-screen border border-teal-400 rounded shadow-md shadow-teal-500" loading="lazy" src="https://jup.ag/swap/SOL-SAMOWIF_GS1VjXDZmDFsiqzBFYoACgRQBmXYuvdPJ88NQcXxg3qM"></iframe>-->
+<!--          <iframe class="w-full h-screen border border-teal-400 rounded shadow-md shadow-teal-500" src="https://raydium.io/swap/?inputCurrency=sol&outputCurrency=GS1VjXDZmDFsiqzBFYoACgRQBmXYuvdPJ88NQcXxg3qM&inputAmount=0&fixed=in"></iframe>-->
         </div>
       </div>
     </div>

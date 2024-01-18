@@ -2,6 +2,7 @@
   <div class="flex">
     <NuxtLayout>
       <NuxtPage />
+      <UNotifications />
     </NuxtLayout>
   </div>
 </template>
