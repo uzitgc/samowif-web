@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { WalletMultiButton, useWallet } from "solana-wallets-vue";
-import {clusterApiUrl, Connection, PublicKey} from "@solana/web3.js";
+import {clusterApiUrl, Connection, PublicKey, VersionedTransaction} from "@solana/web3.js";
 import {TOKEN_PROGRAM_ID} from "@solana/spl-token";
+import Wallet from "@project-serum/sol-wallet-adapter";
 
 const connection = new Connection('https://delicate-dry-sea.solana-mainnet.quiknode.pro/491fc2e3358a17e5c6131ff17f1df4294e298d78/');
 
@@ -38,8 +39,6 @@ watch(() => useWallet().publicKey.value, async (value, oldValue, onCleanup) => {
       toast.add({ title: 'BALANCE REQUEST ERROR!', description: `Unable to get the balance for the ${useWallet().publicKey.value?.toBase58()}`, color: 'red' })
     }
 
-
-
     // const account = await connection.getAccountInfo(new PublicKey('GS1VjXDZmDFsiqzBFYoACgRQBmXYuvdPJ88NQcXxg3qM'), 'confirmed');
     const tokenAccount = (await connection.getTokenAccountsByOwner(value, {
       programId: TOKEN_PROGRAM_ID,
@@ -49,12 +48,16 @@ watch(() => useWallet().publicKey.value, async (value, oldValue, onCleanup) => {
     console.log(tokenAccount)
 
     if (tokenAccount) {
-      const tokenAccountBalance = await connection.getTokenAccountBalance(tokenAccount.pubkey)
+      try {
+        const tokenAccountBalance = await connection.getTokenAccountBalance(tokenAccount.pubkey)
 
-      console.log(tokenAccountBalance.value.uiAmount)
+        console.log(tokenAccountBalance.value.uiAmount)
 
-      if(tokenAccountBalance.value.uiAmount) {
-        toast.add({ title: 'True SAMOWIFER!', description: `Thanks for holding ${tokenAccountBalance.value.uiAmount} SAMOWIF!!!` })
+        if(tokenAccountBalance.value.uiAmount) {
+          toast.add({ title: 'True SAMOWIFER!', description: `Thanks for holding ${tokenAccountBalance.value.uiAmount} SAMOWIF!!!` })
+        }
+      } catch (e) {
+
       }
     }
   }
@@ -70,6 +73,7 @@ onMounted(async () => {
   `)
 })
 
+
 const swv_button_height = computed(() => useWallet().connected ? '0' : 'auto');
 
 </script>
@@ -84,7 +88,7 @@ const swv_button_height = computed(() => useWallet().connected ? '0' : 'auto');
 
     <ClientOnly>
       <div id="wallet_wrapper" class="flex items-center">
-        <WalletMultiButton />
+        <WalletMultiButton clus />
       </div>
     </ClientOnly>
   </div>

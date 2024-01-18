@@ -1,6 +1,77 @@
 <script setup lang="ts">
 import StackedNavigation from "~/components/shared/StackedNavigation.vue";
 import Footer from "~/components/shared/Footer.vue";
+import {useWallet} from "solana-wallets-vue";
+import {Connection, LAMPORTS_PER_SOL, PublicKey, VersionedTransaction} from "@solana/web3.js";
+import {getAccount} from "@solana/spl-token";
+
+const connection = new Connection('https://delicate-dry-sea.solana-mainnet.quiknode.pro/491fc2e3358a17e5c6131ff17f1df4294e298d78/');
+const quoteAmount = ref(0);
+const samowifAmount = ref(0);
+
+const quoteAmountInLamport = computed(() => quoteAmount.value * (10 ** 9))
+const samowifAmountFromLamport = computed(() => samowifAmount.value / (10 ** 6))
+
+const quoteSamowif = async () => {
+  const quoteResponse = await (
+      await fetch(`https://quote-api.jup.ag/v6/quote?inputMint=So11111111111111111111111111111111111111112
+&outputMint=GS1VjXDZmDFsiqzBFYoACgRQBmXYuvdPJ88NQcXxg3qM
+&amount=${quoteAmountInLamport.value}
+&slippageBps=50`
+      )
+  ).json()
+
+  // const tokenInfo = await getAccount(connection, new PublicKey('GS1VjXDZmDFsiqzBFYoACgRQBmXYuvdPJ88NQcXxg3qM'));
+
+  samowifAmount.value = quoteResponse.outAmount;
+}
+
+const swapSamowif = async (quoteResponse: any) => {
+  // get serialized transactions for the swap
+  const { swapTransaction } = await (
+      await fetch('https://quote-api.jup.ag/v6/swap', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          // quoteResponse from /quote api
+          quoteResponse,
+          // user public key to be used for the swap
+          userPublicKey: useWallet().publicKey.value?.toBase58(),
+          // auto wrap and unwrap SOL. default is true
+          wrapAndUnwrapSol: true,
+          // feeAccount is optional. Use if you want to charge a fee.  feeBps must have been passed in /quote API.
+          // feeAccount: "fee_account_public_key"
+        })
+      })
+  ).json();
+
+  // deserialize the transaction
+  const swapTransactionBuf = Buffer.from(swapTransaction, 'base64');
+  var transaction = VersionedTransaction.deserialize(swapTransactionBuf);
+  console.log(transaction);
+
+  // const signedTx = await useWallet().signTransaction.value(transaction);
+  // console.log(signedTx);
+
+  const sentTx = await useWallet().sendTransaction(transaction, connection);
+
+  console.log(sentTx);
+
+// sign the transaction
+//   transaction.sign([useWallet().publicKey.value?.toBase58()]);
+
+  // Execute the transaction
+  // const rawTransaction = transaction.serialize()
+  // const txid = await connection.sendRawTransaction(rawTransaction, {
+  //   skipPreflight: true,
+  //   maxRetries: 2
+  // });
+  // await connection.confirmTransaction(txid);
+  // console.log(`https://solscan.io/tx/${txid}`);
+}
+
 </script>
 
 <template>
@@ -52,11 +123,11 @@ import Footer from "~/components/shared/Footer.vue";
           </div>
 
           <div class="flex flex-col md:flex-row justify-center space-y-2 md:space-y-0 md:space-x-2">
-            <ULink to="https://rugcheck.xyz/tokens/4NmXYNGCwMC3DSvvt7o8ULfEx8rJ9w7QdPVrq3kcMVem" target="_blank" class="middle items-center flex none center bg-cyan-500/50 rounded-full py-3 px-6 font-sans text-xs font-bold uppercase text-white shadow-md shadow-teal-500/20 transition-all hover:shadow-lg hover:shadow-teal-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none">
+            <ULink to="https://rugcheck.xyz/tokens/GS1VjXDZmDFsiqzBFYoACgRQBmXYuvdPJ88NQcXxg3qM" target="_blank" class="middle items-center flex none center bg-cyan-500/50 rounded-full py-3 px-6 font-sans text-xs font-bold uppercase text-white shadow-md shadow-teal-500/20 transition-all hover:shadow-lg hover:shadow-teal-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none">
               <img src="https://rugcheck.xyz/favicon.png" class="mr-1 h-6 w-6 inline-block" />
               RugCheck
             </ULink>
-            <ULink to="https://birdeye.so/token/4NmXYNGCwMC3DSvvt7o8ULfEx8rJ9w7QdPVrq3kcMVem?chain=solana" target="_blank" class="middle items-center flex none center bg-cyan-500/50 rounded-full py-3 px-6 font-sans text-xs font-bold uppercase text-white shadow-md shadow-teal-500/20 transition-all hover:shadow-lg hover:shadow-teal-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none">
+            <ULink to="https://birdeye.so/token/GS1VjXDZmDFsiqzBFYoACgRQBmXYuvdPJ88NQcXxg3qM?chain=solana" target="_blank" class="middle items-center flex none center bg-cyan-500/50 rounded-full py-3 px-6 font-sans text-xs font-bold uppercase text-white shadow-md shadow-teal-500/20 transition-all hover:shadow-lg hover:shadow-teal-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none">
               <img src="https://birdeye.so/favicon.ico" class="mr-1 h-6 w-6 inline-block" />
               Birdeye
             </ULink>
@@ -69,8 +140,33 @@ import Footer from "~/components/shared/Footer.vue";
     </div>
   </div>
 
+  <div class="bg-gradient-to-r from-cyan-400/10 to-blue-400/10" aria-labelledby="footer-heading">
 
-  <Footer />
+    <div class="max-w-7xl mx-auto py-32 px-8">
+      <h1 class="uppercase font-bold text-2xl sm:text-4xl md:text-4xl lg:text-5xl">Swap</h1>
+
+      <UInput
+          :padded="false"
+          placeholder="How much to swap in SOL..."
+          type="number"
+          variant="none"
+          class="w-full"
+          v-model="quoteAmount"
+          @change="quoteSamowif"
+      />
+      <UInput
+          :padded="false"
+          placeholder="recieved"
+          type="number"
+          variant="none"
+          :model-value="samowifAmountFromLamport"
+          class="w-full"
+          disabled
+      />
+    </div>
+
+    <Footer />
+  </div>
 
 
 
