@@ -25,10 +25,7 @@ const NavigationItems = ref([
         {{ item.name }}
       </ULink>
 
-
-      <ClientOnly>
-        <WalletMultiButton />
-      </ClientOnly>
+      <WalletMultiButton />
     </div>
   </div>
 </template>
