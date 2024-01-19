@@ -9,10 +9,25 @@ export default defineNuxtConfig({
     build: {
       target: "esnext",
     },
+
+    // optimizeDeps: {
+    //   include: ["buffer"],
+    //   esbuildOptions: {
+    //     target: "esnext",
+    //   },
+    // },
+    resolve: {
+      alias: {
+        crypto: 'crypto-browserify',
+      },
+    },
     optimizeDeps: {
-      include: ["@project-serum/anchor", "@solana/web3.js", "@solana/spl-token", "buffer"],
+      include: ["buffer"],
       esbuildOptions: {
-        target: "esnext",
+        // Node.js global to browser globalThis
+        define: {
+          global: 'globalThis',
+        },
       },
     },
     define: {

@@ -2,8 +2,7 @@
 import StackedNavigation from "~/components/shared/StackedNavigation.vue";
 import Footer from "~/components/shared/Footer.vue";
 import {useWallet} from "solana-wallets-vue";
-import {Connection, LAMPORTS_PER_SOL, PublicKey, VersionedTransaction} from "@solana/web3.js";
-import {getAccount} from "@solana/spl-token";
+import {Connection, VersionedTransaction} from "@solana/web3.js";
 
 const connection = new Connection('https://delicate-dry-sea.solana-mainnet.quiknode.pro/491fc2e3358a17e5c6131ff17f1df4294e298d78/');
 const quoteAmount = ref(0);
