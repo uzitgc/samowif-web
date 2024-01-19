@@ -20,5 +20,8 @@
   "engines": {
     "node": "18.16.0"
   },
-  "dependencies": {}
+  "dependencies": {
+    "@solana/wallet-adapter-wallets": "^0.19.25",
+    "solana-wallets-vue": "^0.6.0"
+  }
 }
