@@ -9,29 +9,5 @@ export default defineNuxtConfig({
     build: {
       target: "esnext",
     },
-
-    // optimizeDeps: {
-    //   include: ["buffer"],
-    //   esbuildOptions: {
-    //     target: "esnext",
-    //   },
-    // },
-    resolve: {
-      alias: {
-        crypto: 'crypto-browserify',
-      },
-    },
-    optimizeDeps: {
-      include: ["buffer"],
-      esbuildOptions: {
-        // Node.js global to browser globalThis
-        define: {
-          global: 'globalThis',
-        },
-      },
-    },
-    define: {
-      "process.env.BROWSER": true,
-    },
   },
 })

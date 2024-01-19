@@ -1,10 +1,4 @@
 <script setup lang="ts">
-import { WalletMultiButton, useWallet } from "solana-wallets-vue";
-import {Connection, PublicKey} from "@solana/web3.js";
-import {TOKEN_PROGRAM_ID} from "@solana/spl-token";
-
-const connection = new Connection('https://delicate-dry-sea.solana-mainnet.quiknode.pro/491fc2e3358a17e5c6131ff17f1df4294e298d78/');
-
 const NavigationItems = ref([
   {
     name: 'Home',
@@ -20,58 +14,6 @@ const NavigationItems = ref([
   // }
 ]);
 
-const toast = useToast();
-
-watch(() => useWallet().publicKey.value, async (value, oldValue, onCleanup) => {
-  console.log('Value changed', value ? value.toBase58() : value)
-
-  if(value) {
-    toast.add({ title: 'Wallet connected!', description: 'Welcome to the SAMOWIF ARMY!' })
-
-    try {
-      const balance = await connection.getBalance(value);
-
-      console.log(balance.toString())
-    } catch (e) {
-      console.log('Unable to get the balance of the account.')
-
-      toast.add({ title: 'BALANCE REQUEST ERROR!', description: `Unable to get the balance for the ${useWallet().publicKey.value?.toBase58()}`, color: 'red' })
-    }
-
-    // const account = await connection.getAccountInfo(new PublicKey('GS1VjXDZmDFsiqzBFYoACgRQBmXYuvdPJ88NQcXxg3qM'), 'confirmed');
-    const tokenAccount = (await connection.getTokenAccountsByOwner(value, {
-      programId: TOKEN_PROGRAM_ID,
-      mint: new PublicKey('GS1VjXDZmDFsiqzBFYoACgRQBmXYuvdPJ88NQcXxg3qM')
-    })).value.find(v => v);
-
-    console.log(tokenAccount)
-
-    if (tokenAccount) {
-      try {
-        const tokenAccountBalance = await connection.getTokenAccountBalance(tokenAccount.pubkey)
-
-        console.log(tokenAccountBalance.value.uiAmount)
-
-        if(tokenAccountBalance.value.uiAmount) {
-          toast.add({ title: 'True SAMOWIFER!', description: `Thanks for holding ${tokenAccountBalance.value.uiAmount} SAMOWIF!!!` })
-        }
-      } catch (e) {
-
-      }
-    }
-  }
-
-})
-
-onMounted(async () => {
-  console.log(`
-  Loaded the following public key: ${useWallet().publicKey.value}
-  `)
-})
-
-
-const swv_button_height = computed(() => useWallet().connected ? '0' : 'auto');
-
 </script>
 
 <template>
@@ -81,12 +23,6 @@ const swv_button_height = computed(() => useWallet().connected ? '0' : 'auto');
         {{ item.name }}
       </ULink>
     </div>
-
-    <ClientOnly>
-      <div id="wallet_wrapper" class="flex items-center">
-        <WalletMultiButton clus />
-      </div>
-    </ClientOnly>
   </div>
 </template>
 
@@ -97,7 +33,6 @@ const swv_button_height = computed(() => useWallet().connected ? '0' : 'auto');
 
 .swv-button {
   @apply text-xs;
-  height: v-bind(swv_button_height);
   font-family: "Proto Mono Light", monospace;
 }
 
