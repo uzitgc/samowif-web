@@ -1,14 +1,13 @@
 <script setup lang="ts">
 import StackedNavigation from "~/components/shared/StackedNavigation.vue";
 import Footer from "~/components/shared/Footer.vue";
-import {LAMPORTS_PER_SOL} from "@solana/web3.js";
 
 const executeExactQuoteIn = async (v: any) => {
 // Swapping SOL to USDC with input 0.1 SOL and 0.5% slippage
   const quoteResponse = await (
       await fetch(`https://quote-api.jup.ag/v6/quote?inputMint=So11111111111111111111111111111111111111112
 &outputMint=EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v
-&amount=${Number((v?.target?.value) ?? 0) * LAMPORTS_PER_SOL}
+&amount=${Number((v?.target?.value) ?? 0) * 1000000000}
 &slippageBps=50`
       )
   ).json();
