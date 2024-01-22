@@ -1,17 +1,72 @@
 <script setup lang="ts">
 import StackedNavigation from "~/components/shared/StackedNavigation.vue";
 import Footer from "~/components/shared/Footer.vue";
+import {useWallet, WalletMultiButton} from "solana-wallets-vue";
+import {Connection, VersionedTransaction} from "@solana/web3.js";
 
-const executeExactQuoteIn = async (v: any) => {
+interface IExchangeOptions {
+  inputAmount: number;
+  outputAmount: number;
+  slippage: number;
+  treasury: number;
+  quoteResponse: any | null;
+}
+
+const exchangeOptions = ref<IExchangeOptions>({
+  inputAmount: 0,
+  outputAmount: 0,
+  slippage: 0.5,
+  treasury: 0,
+  quoteResponse: null
+});
+
+
+const executeSwap = async () => {
+// get serialized transactions for the swap
+  const { swapTransaction } = await (
+      await fetch('https://quote-api.jup.ag/v6/swap', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          // quoteResponse from /quote api
+          quoteResponse: exchangeOptions.value.quoteResponse,
+          // user public key to be used for the swap
+          userPublicKey: useWallet().publicKey.value?.toBase58(),
+          // auto wrap and unwrap SOL. default is true
+          wrapAndUnwrapSol: true,
+          // feeAccount is optional. Use if you want to charge a fee.  feeBps must have been passed in /quote API.
+          // feeAccount: "fee_account_public_key"
+        })
+      })
+  ).json();
+
+  // deserialize the transaction
+  const swapTransactionBuf = Buffer.from(swapTransaction, 'base64');
+  var transaction = VersionedTransaction.deserialize(swapTransactionBuf);
+  console.log(transaction);
+
+  // const signedTx = await useWallet().signTransaction.value(transaction);
+  // console.log(signedTx);
+  const connection = new Connection('https://delicate-dry-sea.solana-mainnet.quiknode.pro/491fc2e3358a17e5c6131ff17f1df4294e298d78/');
+  const sentTx = await useWallet().sendTransaction(transaction, connection);
+
+  console.log(sentTx);
+}
+
+const executeExactQuoteIn = async () => {
 // Swapping SOL to USDC with input 0.1 SOL and 0.5% slippage
   const quoteResponse = await (
       await fetch(`https://quote-api.jup.ag/v6/quote?inputMint=So11111111111111111111111111111111111111112
-&outputMint=EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v
-&amount=${Number((v?.target?.value) ?? 0) * 1000000000}
-&slippageBps=50`
+&outputMint=GS1VjXDZmDFsiqzBFYoACgRQBmXYuvdPJ88NQcXxg3qM
+&amount=${Number(exchangeOptions.value.inputAmount * 1000000000)}
+&slippageBps=${exchangeOptions.value.slippage * 100}`
       )
   ).json();
-console.log({ quoteResponse })
+
+  exchangeOptions.value.outputAmount = Number(quoteResponse?.outAmount / 1000000);
+  exchangeOptions.value.quoteResponse = quoteResponse;
 }
 </script>
 
@@ -81,12 +136,51 @@ console.log({ quoteResponse })
     </div>
   </div>
 
-  <div class="bg-gradient-to-r from-cyan-400/10 to-blue-400/10" aria-labelledby="footer-heading">
+  <div class="py-16 grow flex flex-col overflow-scroll-y relative bg-gradient-to-r from-amber-400/10 to-green-400/10">
+    <div>
+      <div class="max-w-7xl mx-auto p-4">
+        <div class="w-full">
+          <div class="flex-1 flex justify-end">
+            <WalletMultiButton />
+          </div>
+        </div>
+      </div>
 
-    <div class="mx-auto max-w-7xl">
-      <u-input model-value="0" type="number" @change="(v) => executeExactQuoteIn(v)"></u-input>
+      <div class="max-w-7xl mx-auto p-4">
+        <h1>Contributing</h1>
+        <p>You can also decide whether to pay a small fee for the swap, which will go to the community wallet and help fund the marketing efforts of the project. </p>
+      </div>
+
+      <div class="grow flex flex-col justify-center space-y-4">
+        <div class="flex flex-col md:flex-row md:space-x-4 justify-center p-4">
+          <div class="flex flex-col">
+            <label class="uppercase">SOL amount</label>
+            <input v-model="exchangeOptions.inputAmount" placeholder="SOL" min="0" max="100" type="number" @change="executeExactQuoteIn" class="bg-transparent text-4xl w-32 outline-none py-4"></input>
+          </div>
+          <div class="flex flex-col">
+            <label class="uppercase">Slippage</label>
+            <input v-model="exchangeOptions.slippage" placeholder="Slippage" type="number" min="0" max="100" class="bg-transparent text-4xl w-16 outline-none py-4"></input>
+          </div>
+          <div class="flex flex-col">
+            <label class="uppercase">Treasury</label>
+            <input v-model="exchangeOptions.treasury" placeholder="Treasury" type="number" class="bg-transparent text-4xl w-16 outline-none py-4 cursor-not-allowed" disabled></input>
+          </div>
+        </div>
+        <div class="flex flex-col md:space-x-4 justify-center p-4">
+          <div class="flex flex-col">
+            <label class="uppercase md:text-center">Samowif</label>
+            <input :value="Number(exchangeOptions.outputAmount).toFixed(2)" placeholder="SAMOWIF" type="number" disabled class="bg-transparent text-5xl md:text-center w-full outline-none cursor-not-allowed"></input>
+          </div>
+        </div>
+
+        <div class="flex justify-center">
+          <button @click="executeSwap" class="uppercase middle items-center flex none center bg-cyan-500/50 rounded-full py-3 px-6 font-sans text-xs font-bold uppercase text-white shadow-md shadow-teal-500/20 transition-all hover:shadow-lg hover:shadow-teal-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none">Swap</button>
+        </div>
+      </div>
     </div>
+  </div>
 
+  <div class="bg-gradient-to-r from-cyan-400/10 to-blue-400/10" aria-labelledby="footer-heading">
     <Footer />
   </div>
 
@@ -140,5 +234,17 @@ console.log({ quoteResponse })
 
 #home_container {
   height: calc(100vh - 60px);
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
 }
 </style>

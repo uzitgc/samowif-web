@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { WalletMultiButton } from "solana-wallets-vue";
 
 const NavigationItems = ref([
   {
@@ -24,8 +23,6 @@ const NavigationItems = ref([
       <ULink v-for="item in NavigationItems" :key="item.name" :to="item.href" :disabled="item.disabled" :class="{'text-gray-400 cursor-not-allowed': item.disabled}" class="uppercase text-xs text-gray-200 font-light" :target="item.target">
         {{ item.name }}
       </ULink>
-
-      <WalletMultiButton />
     </div>
   </div>
 </template>
