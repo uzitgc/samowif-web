@@ -8,7 +8,7 @@
       <div class="max-w-7xl mx-auto xl:py-2 animate duration-500 flex flex-col grow z-10 space-y-16 h-screen">
         <Navigation />
 
-        <div class="grow space-x-16 flex-1 flex justify-around w-full z-10 flex items-center">
+        <div class="p-4 xl:p-0 grow md:space-x-16 flex-1 flex-col flex xl:flex-row justify-around w-full z-10 flex items-center">
           <!--        <img src="/official-logo.png" class="w-32 h-32 animate-pulse">-->
           <div class="flex-1 flex flex-col justify-center space-y-8 relative">
 
@@ -23,19 +23,19 @@
             </div>
           </div>
 
-          <div class="w-[512px] h-[512px] block relative">
-            <div class="absolute gradient -z-10 -left-1/2 w-[1000px] h-[1000px]"></div>
-            <div class="absolute gradient -z-10 -right-1/2"></div>
-            <img class="w-[512px] h-[512px] ring-4 ring-cyan-500/70 custom-border-radius" src="/samowif-collection.gif">
+          <div class="flex flex-col items-center relative">
+            <div class="absolute gradient -z-10 -left-1/2 w-[250px] h-[250px] md:w-[500px] md:h-[500px] xl:w-[1000px] xl:h-[1000px]"></div>
+            <div class="absolute gradient -z-10 xl:-right-1/2"></div>
+            <img class="w-[124px] h-[124px] md:w-[256px] md:h-[256px] xl:w-[512px] xl:h-[512px] ring-4 ring-cyan-500/70 custom-border-radius" src="/samowif-collection.gif">
             <div class="flex justify-center mt-8">
-              <button class="ring-2 ring-cyan-500/70 rounded-md bg-cyan-500/50 px-3 py-1.5 uppercase cursor-not-allowed">Mint (Coming soon...)</button>
+              <button class="uppercase middle items-center flex none center bg-cyan-500/50 rounded-full py-3 px-6 font-sans text-xs font-bold uppercase text-white shadow-md shadow-teal-500/20 transition-all hover:shadow-lg hover:shadow-teal-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none cursor-not-allowed">Mint (Coming soon...)</button>
             </div>
           </div>
         </div>
       </div>
 
       <button class="flex justify-center items-center py-8 animate-pulse animate-bounce duration-500 flex flex-col">
-        <span class="uppercase">Contribute using <span class="text-green-500 text-bold">Jupiter</span></span>
+        <a href="#jupiter-section" class="uppercase">Contribute using <span class="text-teal-500 text-bold">Jupiter</span></a>
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
           <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 5.25 7.5 7.5 7.5-7.5m-15 6 7.5 7.5 7.5-7.5" />
         </svg>
@@ -44,18 +44,18 @@
 
     <div id="jupiter-section" class="border-b-2 border-teal-500 jupiter-background">
       <div class="max-w-7xl mx-auto py-16">
-        <div class="w-full">
+        <div class="w-full ">
           <div class="flex-1 flex justify-end">
             <WalletMultiButton />
           </div>
         </div>
-        <div class="space-y-8">
+        <div class="space-y-8 p-4 xl:p-0">
           <h1 class="text-teal-300 uppercase text-2xl sm:text-4xl md:text-4xl lg:text-5xl">Why contribute?</h1>
 
           <div>
             <p>Contributing, or rather investing, in the project grants you, as an official SAMOWIF holder, the privilege to participate in governance and steer the project’s direction.</p>
-            <p>By purchasing through the <a target="_blank" href="https://jup.ag/swap/SOL-SAMOWIF_GS1VjXDZmDFsiqzBFYoACgRQBmXYuvdPJ88NQcXxg3qM" class="text-green-500">Jupiter</a> aggregator platform, no additional expense will be added during the exchange.</p>
-            <p>If, however, you wish to support the SamoWifHat project through voluntary donations, our official community wallet is: <code class="text-teal-300 font-bold">7MY82cpyg4r5QsyeGieotiR6K1wcCfkjUT59ykFoPujH</code></p>
+            <p>By purchasing through the <a target="_blank" href="https://jup.ag/swap/SOL-SAMOWIF_GS1VjXDZmDFsiqzBFYoACgRQBmXYuvdPJ88NQcXxg3qM" class="text-teal-500">Jupiter</a> aggregator platform, no additional expense will be added during the exchange.</p>
+            <p>If, however, you wish to support the SamoWifHat project through voluntary donations, our official community wallet is: <code class="text-teal-300 font-bold">9dFWae1zFXUdgiQA9NXqwar8JS2JWHJs1ZuBPx5pMLPR</code></p>
           </div>
         </div>
 
@@ -63,11 +63,11 @@
           <div class="flex flex-col md:flex-row md:space-x-4 justify-center p-4">
             <div class="flex flex-col">
               <label class="uppercase">SOL amount</label>
-              <input v-model="exchangeOptions.inputAmount" placeholder="SOL" min="0" max="100" type="number" @change="executeExactQuoteIn" class="bg-transparent text-4xl w-32 outline-none py-4"></input>
+              <input v-model="exchangeOptions.inputAmount" placeholder="SOL" min="0" max="100" type="number" @change="executeExactQuoteIn" class="bg-transparent text-4xl min-w-[100px] outline-none py-4"></input>
             </div>
             <div class="flex flex-col">
               <label class="uppercase">Slippage</label>
-              <input v-model="exchangeOptions.slippage" placeholder="Slippage" type="number" min="0" max="100" class="bg-transparent text-4xl w-16 outline-none py-4"></input>
+              <input v-model="exchangeOptions.slippage" placeholder="Slippage" type="number" min="0" max="100" class="bg-transparent text-4xl w-16 outline-none py-4 min-w-[100px]"></input>
             </div>
           </div>
           <div class="flex flex-col md:space-x-4 justify-center p-4">
@@ -78,14 +78,14 @@
           </div>
 
           <div class="flex justify-center">
-            <button @click="executeSwap" class="uppercase middle items-center flex none center bg-cyan-500/50 rounded-full py-3 px-6 font-sans text-xs font-bold uppercase text-white shadow-md shadow-teal-500/20 transition-all hover:shadow-lg hover:shadow-teal-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none">Exchange</button>
+            <button :disabled="!exchangeOptions.quoteResponse" @click="executeSwap" class="uppercase middle items-center flex none center bg-cyan-500/50 rounded-full py-3 px-6 font-sans text-xs font-bold uppercase text-white shadow-md shadow-teal-500/20 transition-all hover:shadow-lg hover:shadow-teal-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none">Exchange</button>
           </div>
         </div>
       </div>
 
       <div class="flex justify-center">
         <button class="flex justify-center items-center py-8 animate-pulse animate-bounce duration-500 flex flex-col">
-          <span class="uppercase">our <span class="text-cyan-500 text-bold">Tokenomics</span></span>
+          <a href="#tokenomics-section" class="uppercase">our <span class="text-cyan-500 text-bold">Tokenomics</span></a>
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
             <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 5.25 7.5 7.5 7.5-7.5m-15 6 7.5 7.5 7.5-7.5" />
           </svg>
@@ -95,8 +95,8 @@
 
     <div id="tokenomics-section" class="pt-16 border-b-2 border-teal-500 bg-teal-900/50">
       <div class="max-w-7xl mx-auto space-y-8 py-16">
-        <div>
-          <div class="space-y-8">
+        <div class="p-4 xl:p-0">
+          <div class="space-y-8 ">
             <h1 class="text-teal-300 uppercase text-2xl sm:text-4xl md:text-4xl lg:text-5xl">Tokenomics Overview</h1>
             <div>
               <p>Our token’s liquidity is permanently burned, ensuring a stable and fair market. Ownership has been renounced, cementing its decentralized nature and securing it against manipulation.</p>
@@ -134,19 +134,22 @@
 <!--            </div>-->
 <!--          </div>-->
 <!--        </div>-->
-        <div>
-          <dl class="mt-5 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            <div v-for="item in stats" :key="item.id" class="relative overflow-hidden rounded-lg ring-1 ring-teal-50/10 px-4 pb-12 pt-5 shadow sm:px-6 sm:pt-6 bg-teal-900/10">
+        <div class="p-4 xl:p-0">
+          <dl class="mt-5 grid grid-cols-1 gap-5 lg:grid-cols-3">
+            <div v-for="item in stats" :key="item.id" class="relative overflow-hidden rounded-lg ring-1 ring-teal-50/10 hover:ring-teal-50/50 px-4 pb-12 pt-5 shadow sm:px-6 sm:pt-6 bg-teal-900/10 hover:bg-teal-900/50 hover:cursor-pointer">
               <dt class="flex items-center">
                 <div class="absolute rounded-md p-3">
                   <component :is="item.icon" class="h-8 w-8" aria-hidden="true" />
                 </div>
-                <p class="ml-16 truncate uppercase text-2xl">{{ item.name }}</p>
+                <div class="flex flex-col">
+                  <p class="ml-16 truncate uppercase text-2xl">{{ item.name }}</p>
+                  <p v-if="item.value" class="ml-16 truncate uppercase text-2xl">{{ item.value }}</p>
+                </div>
               </dt>
               <dd v-if="item.href" class="ml-16 flex items-baseline pb-6 sm:pb-7">
                 <div class="absolute inset-x-0 bottom-0 px-4 py-4 sm:px-6">
                   <div class="text-sm">
-                    <a :href="item.href" class="font-medium"
+                    <a target="_blank" :href="item.href" class="font-medium"
                     >View tx</a
                     >
                   </div>
@@ -159,7 +162,7 @@
 
       <div class="flex justify-center">
         <button class="flex justify-center items-center py-8 animate-pulse animate-bounce duration-500 flex flex-col">
-          <span class="uppercase">our <span class="text-amber-500 text-bold">Roadmap</span></span>
+          <a href="#roadmap-section" class="uppercase">our <span class="text-amber-500 text-bold">Roadmap</span></a>
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
             <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 5.25 7.5 7.5 7.5-7.5m-15 6 7.5 7.5 7.5-7.5" />
           </svg>
@@ -170,7 +173,7 @@
     <div id="roadmap-section" class="mt-16 border-b-2 border-teal-500">
       <div class="max-w-7xl mx-auto py-16">
         <div>
-          <div class="space-y-8">
+          <div class="space-y-8 p-4 xl:p-0">
             <h1 class="text-teal-300 uppercase text-2xl sm:text-4xl md:text-4xl lg:text-5xl">Roadmap</h1>
             <div>
               <p>Our roadmap is a dynamic blueprint, designed to adapt to the evolving landscape of our project and community needs. While we aim to adhere to the outlined milestones, we remain open to changes that may enhance our journey. Our commitment is to progress, not to a fixed path.</p>
@@ -178,9 +181,9 @@
           </div>
         </div>
 
-        <div>
+        <div class="p-4 xl:p-0">
           <dl class="mt-5 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            <div v-for="item in roadmap_items" :key="item.id" class="relative overflow-hidden rounded-lg ring-1 ring-teal-50/10 px-4 pb-12 pt-5 shadow sm:px-6 sm:pt-6 bg-teal-900/10">
+            <div v-for="item in roadmap_items" :key="item.id" class="relative overflow-hidden rounded-lg ring-1 ring-teal-50/10 hover:ring-teal-50/50 px-4 pb-12 pt-5 shadow sm:px-6 sm:pt-6 bg-teal-900/10 hover:bg-teal-900/50 hover:cursor-pointer">
               <div class="flex items-center">
 <!--                <component :is="item.icon" class="h-8 w-8" aria-hidden="true" />-->
                 <!--                <p class="ml-16 truncate uppercase text-2xl">{{ item.name }}</p>-->
@@ -204,7 +207,7 @@
 
       <div class="flex justify-center">
         <button class="flex justify-center items-center py-8 animate-pulse animate-bounce duration-500 flex flex-col">
-          <span class="uppercase">our <span class="text-slate-300 text-bold">Leaderboard</span></span>
+          <a href="#leaderboard-section" class="uppercase">our <span class="text-slate-300 text-bold">Leaderboard</span></a>
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
             <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 5.25 7.5 7.5 7.5-7.5m-15 6 7.5 7.5 7.5-7.5" />
           </svg>
@@ -213,13 +216,24 @@
     </div>
 
     <div id="leaderboard-section" class="mt-16 border-b-2 border-teal-500">
-      <div class="max-w-7xl mx-auto py-16">
-        <Leaderboard />
+      <div class="max-w-7xl mx-auto py-16 space-y-8">
+        <div>
+          <div class="space-y-8 p-4 xl:p-0">
+
+            <UChip text="Coming soon" size="3xl" color="blue" class="uppercase bg-transparent">
+              <h1 class="text-teal-300 uppercase text-2xl sm:text-4xl md:text-4xl lg:text-5xl">Leaderboard</h1>
+            </UChip>
+            <div>
+              <p>To honor our true holders and early backers, we’re introducing a leaderboard that tracks contributions and support. This transparent ranking celebrates the commitment of our community members, offering visibility and rewards for their loyalty.</p>
+            </div>
+          </div>
+        </div>
+        <Leaderboard class="p-4 xl:p-0" />
       </div>
 
-      <div class="flex justify-center">
+      <div class="flex justify-center ">
         <button class="flex justify-center items-center py-8 animate-pulse animate-bounce duration-500 flex flex-col">
-          <span class="uppercase">our <span class="text-blue-500 text-bold">Socials</span></span>
+          <a href="#socials-section" class="uppercase">our <span class="text-blue-500 text-bold">Socials</span></a>
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
             <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 5.25 7.5 7.5 7.5-7.5m-15 6 7.5 7.5 7.5-7.5" />
           </svg>
@@ -230,7 +244,7 @@
     <div class="max-w-7xl mx-auto p-2 grow">
       <slot />
     </div>
-    <Footer />
+    <Footer id="socials-section" />
   </div>
 </template>
 <script setup lang="ts">
@@ -242,11 +256,12 @@ import Footer from "../components/layout/default/footer.vue";
 import { ArrowDownIcon, ArrowUpIcon } from '@heroicons/vue/20/solid'
 import {CursorArrowRaysIcon, EnvelopeOpenIcon, FireIcon, ShieldCheckIcon, UsersIcon} from '@heroicons/vue/24/outline'
 import {CalculatorIcon} from "@heroicons/vue/24/solid";
+import {Connection, VersionedTransaction} from "@solana/web3.js";
 
 const stats = [
-  { id: 1, name: 'Ownership Renounced', href: '/', icon: ShieldCheckIcon, },
-  { id: 2, name: 'LP Burned', href: '/', icon: FireIcon},
-  { id: 3, name: 'Total supply', icon: CalculatorIcon},
+  { id: 1, name: 'Ownership Renounced', icon: ShieldCheckIcon, },
+  { id: 2, name: 'LP Burned', href: 'https://solscan.io/tx/56ptvHRCYVzdbYThj8T979tqaVhChoQBNDLHziDgNusm6gCZzT1VbEjAVP3jkEVPqzfHMy7H9ucKnKrwFLq63HeD', icon: FireIcon},
+  { id: 3, name: 'Total supply', icon: CalculatorIcon, value: '20.960.335'},
 ]
 
 const roadmap_items = [
@@ -271,39 +286,40 @@ const exchangeOptions = ref<IExchangeOptions>({
 
 const executeSwap = async () => {
 // get serialized transactions for the swap
-//   const { swapTransaction } = await (
-//       await fetch('https://quote-api.jup.ag/v6/swap', {
-//         method: 'POST',
-//         headers: {
-//           'Content-Type': 'application/json'
-//         },
-//         body: JSON.stringify({
-//           // quoteResponse from /quote api
-//           quoteResponse: exchangeOptions.value.quoteResponse,
-//           // user public key to be used for the swap
-//           userPublicKey: useWallet().publicKey.value?.toBase58(),
-//           // auto wrap and unwrap SOL. default is true
-//           wrapAndUnwrapSol: true,
-//           // feeAccount is optional. Use if you want to charge a fee.  feeBps must have been passed in /quote API.
-//           // feeAccount: "fee_account_public_key"
-//         })
-//       })
-//   ).json();
-//
-//   // deserialize the transaction
-//   const swapTransactionBuf = Buffer.from(swapTransaction, 'base64');
-//   var transaction = VersionedTransaction.deserialize(swapTransactionBuf);
-//   console.log(transaction);
-//
-//   // const signedTx = await useWallet().signTransaction.value(transaction);
-//   // console.log(signedTx);
-//   const connection = new Connection('https://delicate-dry-sea.solana-mainnet.quiknode.pro/491fc2e3358a17e5c6131ff17f1df4294e298d78/');
-//   const sentTx = await useWallet().sendTransaction(transaction, connection);
-//
-//   console.log(sentTx);
+  const { swapTransaction } = await (
+      await fetch('https://quote-api.jup.ag/v6/swap', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          // quoteResponse from /quote api
+          quoteResponse: exchangeOptions.value.quoteResponse,
+          // user public key to be used for the swap
+          userPublicKey: useWallet().publicKey.value?.toBase58(),
+          // auto wrap and unwrap SOL. default is true
+          wrapAndUnwrapSol: true,
+          // feeAccount is optional. Use if you want to charge a fee.  feeBps must have been passed in /quote API.
+          // feeAccount: "fee_account_public_key"
+        })
+      })
+  ).json();
+
+  // deserialize the transaction
+  const swapTransactionBuf = Buffer.from(swapTransaction, 'base64');
+  var transaction = VersionedTransaction.deserialize(swapTransactionBuf);
+  console.log(transaction);
+
+  // const signedTx = await useWallet().signTransaction.value(transaction);
+  // console.log(signedTx);
+  const connection = new Connection('https://delicate-dry-sea.solana-mainnet.quiknode.pro/491fc2e3358a17e5c6131ff17f1df4294e298d78/');
+  const sentTx = await useWallet().sendTransaction(transaction, connection);
+
+  console.log(sentTx);
 }
 
 const executeExactQuoteIn = async () => {
+  exchangeOptions.value.quoteResponse = null;
 // // Swapping SOL to USDC with input 0.1 SOL and 0.5% slippage
   const quoteResponse = await (
       await fetch(`https://quote-api.jup.ag/v6/quote?inputMint=So11111111111111111111111111111111111111112
@@ -383,4 +399,16 @@ const executeExactQuoteIn = async () => {
     background-position-x: 10000px;
   }
 }
+
+table thead th button {
+  color: white!important;
+}
+table thead th button:hover {
+  background: transparent !important;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
 </style>

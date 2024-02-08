@@ -5,6 +5,7 @@
 </template>
 
 <style>
+@import 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css';
 html {
   overflow-x: hidden;
 }
@@ -23,7 +24,7 @@ body {
 
 </style>
 
-<script setup lang="ts">
-import './assets/all.min.css';
+<!--<script setup lang="ts">-->
+<!--import './assets/all.min.css';-->
 
-</script>
+<!--</script>-->

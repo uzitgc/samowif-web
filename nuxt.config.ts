@@ -2,6 +2,9 @@
 export default defineNuxtConfig({
   ssr: false,
   devtools: { enabled: true },
+  colorMode: {
+    preference: 'light'
+  },
   modules: [
     '@nuxt/ui'
   ],

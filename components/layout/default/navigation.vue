@@ -21,9 +21,9 @@ const navigationItems = ref([
     title: 'Roadmap',
     href: '#roadmap-section'
   },
-  {
-    title: 'Leaderboard',
-    href: '#leaderboard-section'
-  },
+  // {
+  //   title: 'Leaderboard',
+  //   href: '#leaderboard-section'
+  // },
 ]);
 </script>
