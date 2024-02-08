@@ -10,7 +10,8 @@
 
         <div class="grow space-x-16 flex-1 flex justify-around w-full z-10 flex items-center">
           <!--        <img src="/official-logo.png" class="w-32 h-32 animate-pulse">-->
-          <div class="flex-1 flex flex-col justify-center space-y-8">
+          <div class="flex-1 flex flex-col justify-center space-y-8 relative">
+
             <div class="relative text-purple-200 font-bold flex-col" data-v-c1c11d52="">
               <span class="uppercase font-bold text-2xl sm:text-4xl md:text-4xl lg:text-5xl">Pofer to community</span>
               <br>
@@ -93,20 +94,15 @@
     </div>
 
     <div id="tokenomics-section" class="pt-16 border-b-2 border-teal-500 bg-teal-900/50">
-      <div class="max-w-7xl mx-auto space-y-8">
-
+      <div class="max-w-7xl mx-auto space-y-8 py-16">
         <div>
           <div class="space-y-8">
             <h1 class="text-teal-300 uppercase text-2xl sm:text-4xl md:text-4xl lg:text-5xl">Tokenomics Overview</h1>
-
             <div>
               <p>Our token’s liquidity is permanently burned, ensuring a stable and fair market. Ownership has been renounced, cementing its decentralized nature and securing it against manipulation.</p>
             </div>
           </div>
-<!--          <span class="text-cyan-400 font-bold">Smowifhat</span> is a unique token that was fair launched with a small initial liquidity and has since demonstrated significant growth. The project prioritizes transparency and trust, having burned the initial liquidity and renounced ownership. This fosters a decentralized, community-led governance structure, reflecting the true spirit of blockchain’s potential. Smowifhat’s rise is a testament to its solid tokenomics and active community engagement.-->
         </div>
-
-
 <!--        <div>-->
 <!--          <div class="flex items-center space-x-1">-->
 <!--            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-red-200">-->
@@ -138,7 +134,6 @@
 <!--            </div>-->
 <!--          </div>-->
 <!--        </div>-->
-
         <div>
           <dl class="mt-5 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
             <div v-for="item in stats" :key="item.id" class="relative overflow-hidden rounded-lg ring-1 ring-teal-50/10 px-4 pb-12 pt-5 shadow sm:px-6 sm:pt-6 bg-teal-900/10">
@@ -173,55 +168,37 @@
     </div>
 
     <div id="roadmap-section" class="mt-16 border-b-2 border-teal-500">
-      <div class="max-w-7xl mx-auto">
-
-        <div class="flex flex-wrap">
-          <div class="p-4 w-1/2">
-            <div class="bg-white rounded-xl shadow-md overflow-hidden">
-              <div class="md:flex">
-                <div class="p-8">
-                  <div class="uppercase tracking-wide text-sm text-indigo-500 font-semibold">Q1 2024</div>
-                  <a href="#" class="block mt-1 text-lg leading-tight font-medium text-black hover:underline">Foundation and Launch</a>
-                  <p class="mt-2 text-gray-500">• <b>Token Fair-Launch</b></p>
-                  <p class="mt-2 text-gray-500">• <b>Renounced and LP burned</b></p>
-                  <p class="mt-2 text-gray-500">• <b>Community Building</b></p>
-                </div>
-              </div>
+      <div class="max-w-7xl mx-auto py-16">
+        <div>
+          <div class="space-y-8">
+            <h1 class="text-teal-300 uppercase text-2xl sm:text-4xl md:text-4xl lg:text-5xl">Roadmap</h1>
+            <div>
+              <p>Our roadmap is a dynamic blueprint, designed to adapt to the evolving landscape of our project and community needs. While we aim to adhere to the outlined milestones, we remain open to changes that may enhance our journey. Our commitment is to progress, not to a fixed path.</p>
             </div>
           </div>
+        </div>
 
-          <div class="p-4 w-1/2">
-            <div class="bg-white rounded-xl shadow-md overflow-hidden">
-              <div class="md:flex">
-                <div class="p-8">
-                  <div class="uppercase tracking-wide text-sm text-indigo-500 font-semibold">Q2 2024</div>
-                  <a href="#" class="block mt-1 text-lg leading-tight font-medium text-black hover:underline">Ecosystem Development</a>
-                  <p class="mt-2 text-gray-500">• <b>NFT Collection Release</b></p>
-                  <p class="mt-2 text-gray-500">• <b>Marketing Campaign</b></p>
-                  <p class="mt-2 text-gray-500">• <b>Partnerships</b></p>
-                </div>
-<!--                <div class="p-8">-->
-<!--                  <div class="uppercase tracking-wide text-sm text-indigo-500 font-semibold">Q2 2024</div>-->
-<!--                  <a href="#" class="block mt-1 text-lg leading-tight font-medium text-black hover:underline">Ecosystem Development</a>-->
-<!--                  <p class="mt-2 text-gray-500">Smowifhat's fair launch on the Solana blockchain, with an initial liquidity pool that was burned to ensure stability, marks a new era in decentralized finance. Ownership has been renounced, paving the way for a community-governed future.</p>-->
+        <div>
+          <dl class="mt-5 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            <div v-for="item in roadmap_items" :key="item.id" class="relative overflow-hidden rounded-lg ring-1 ring-teal-50/10 px-4 pb-12 pt-5 shadow sm:px-6 sm:pt-6 bg-teal-900/10">
+              <div class="flex items-center">
+<!--                <component :is="item.icon" class="h-8 w-8" aria-hidden="true" />-->
+                <!--                <p class="ml-16 truncate uppercase text-2xl">{{ item.name }}</p>-->
+                <div class="uppercase tracking-wide text-sm text-indigo-500 font-semibold">{{item.time}}</div>
+              </div>
+              <div class="">
+
+                <a href="#" class="block mt-1 text-lg leading-tight font-medium text-black hover:underline uppercase text-orange-200">{{item.name}}</a>
+                <p class="mt-2 text-gray-200" v-for="subitems in item.items">• <b>{{subitems}}</b></p>
+
+<!--                <div class="text-sm">-->
+<!--                  <a :href="item.href" class="font-medium"-->
+<!--                  >View tx</a-->
+<!--                  >-->
 <!--                </div>-->
               </div>
             </div>
-          </div>
-
-          <div class="p-4 w-1/2">
-            <div class="bg-white rounded-xl shadow-md overflow-hidden">
-              <div class="md:flex">
-                <div class="p-8">
-                  <div class="uppercase tracking-wide text-sm text-indigo-500 font-semibold">Q3 2024</div>
-                  <a href="#" class="block mt-1 text-lg leading-tight font-medium text-black hover:underline">Growth and Expansion</a>
-                  <p class="mt-2 text-gray-500">• <b>Community Governance</b></p>
-                  <p class="mt-2 text-gray-500">• <b>Platform Optimization</b></p>
-                  <p class="mt-2 text-gray-500"><b>And more...</b></p>
-                </div>
-              </div>
-            </div>
-          </div>
+          </dl>
         </div>
       </div>
 
@@ -236,10 +213,8 @@
     </div>
 
     <div id="leaderboard-section" class="mt-16 border-b-2 border-teal-500">
-      <div class="max-w-7xl mx-auto">
-
+      <div class="max-w-7xl mx-auto py-16">
         <Leaderboard />
-
       </div>
 
       <div class="flex justify-center">
@@ -255,7 +230,6 @@
     <div class="max-w-7xl mx-auto p-2 grow">
       <slot />
     </div>
-
     <Footer />
   </div>
 </template>
@@ -274,6 +248,12 @@ const stats = [
   { id: 2, name: 'LP Burned', href: '/', icon: FireIcon},
   { id: 3, name: 'Total supply', icon: CalculatorIcon},
 ]
+
+const roadmap_items = [
+  { id: 1, time: 'Q1 2024', name: 'Foundation and Launch', items: ['Token Fair-Launch', 'Renounced and LP burned', 'Community Building' ], },
+  { id: 2, time: 'Q2 2024', name: 'Ecosystem Development', items: ['NFT Collection Release', 'Marketing Campaign', 'Partnerships' ], },
+  { id: 3, time: 'Q3 2024', name: 'Growth and Expansion', items: ['Community Governance', 'Platform Optimization', 'And more...' ], },
+];
 
 interface IExchangeOptions {
   inputAmount: number;
