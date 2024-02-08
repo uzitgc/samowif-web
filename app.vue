@@ -24,7 +24,12 @@ body {
 
 </style>
 
-<!--<script setup lang="ts">-->
-<!--import './assets/all.min.css';-->
+<script setup lang="ts">
+useHead({
+  title: 'SamoWifHat - Official',
+  meta: [
+    { name: 'description', content: 'SAMOWIF is a community-driven memecoin that puts the power in the hands of the people.' }
+  ],
+})
 
-<!--</script>-->
+</script>
