@@ -1,7 +1,13 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  modules: ['@nuxt/ui'],
+  ssr: false,
   devtools: { enabled: true },
+  colorMode: {
+    preference: 'light'
+  },
+  modules: [
+    '@nuxt/ui'
+  ],
   vite: {
     esbuild: {
       target: "esnext",
@@ -10,7 +16,7 @@ export default defineNuxtConfig({
       target: "esnext",
     },
     optimizeDeps: {
-      include: ["@project-serum/anchor", "@solana/web3.js", "@solana/spl-token", "buffer"],
+      include: ["@solana/web3.js", "buffer"],
       esbuildOptions: {
         target: "esnext",
       },
