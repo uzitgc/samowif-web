@@ -1,8 +1,10 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   ssr: false,
-  modules: ['@nuxt/ui'],
   devtools: { enabled: true },
+  modules: [
+    '@nuxt/ui'
+  ],
   vite: {
     esbuild: {
       target: "esnext",
@@ -11,7 +13,7 @@ export default defineNuxtConfig({
       target: "esnext",
     },
     optimizeDeps: {
-      include: ["@project-serum/anchor", "@solana/web3.js", "buffer"],
+      include: ["@solana/web3.js", "buffer"],
       esbuildOptions: {
         target: "esnext",
       },

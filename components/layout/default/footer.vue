@@ -4,7 +4,7 @@
     <div class="mx-auto max-w-7xl px-6 pb-8 pt-16 sm:pt-24 lg:px-8 lg:pt-32 flex justify-between">
       <div class="space-y-8 flex flex-col">
         <div class="flex space-x-4 items-center">
-          <img class="h-7" src="/public/official-logo.png" alt="Company name" />
+          <img class="h-7" src="/official-logo.png" alt="Company name" />
           <p class="text-sm leading-6 text-gray-300">Making the world a better place...</p>
         </div>
         <div class="flex space-x-6">
